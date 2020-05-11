@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 
 use App\User;
@@ -77,7 +79,8 @@ class AuthController extends Controller
 	}
 
 	public function logout(Request $request) {
-		$user = User::find(8);
+
+		$user = auth('sanctum')->user();
 		$user->tokens()->whereName('user-token')->delete();
 
 		$response = [
