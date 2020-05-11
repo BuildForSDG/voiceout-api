@@ -85,9 +85,9 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Backend</a>
-                    <a href="https://laracasts.com">Frontend</a>
-                    <a href="https://laravel-news.com">Team</a>
+                    <a href="https://github.com/BuildForSDG/voiceout-api">Backend</a>
+                    <a href="https://github.com/BuildForSDG/voiceout">Frontend</a>
+                    <a href="https://github.com/orgs/BuildForSDG/teams/team-085">Team</a>
                 </div>
             </div>
         </div>
