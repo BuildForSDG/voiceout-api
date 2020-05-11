@@ -10,6 +10,5 @@ $factory->define(Institution::class, function (Faker $faker) {
         'name' => $faker->unique()->company,
         'description' => $faker->text,
         'address' => $faker->address,
-        'official' => $faker->boolean(50),
     ];
 });
