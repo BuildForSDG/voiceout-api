@@ -2,14 +2,15 @@
 
 use Illuminate\Database\Seeder;
 
-class InstitutionSeeder extends Seeder
+class VoteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run() {
-    	factory(App\Institution::class, 10)->create();
+    public function run()
+    {
+    	factory(App\Vote::class, 10)->create();
     }
 }

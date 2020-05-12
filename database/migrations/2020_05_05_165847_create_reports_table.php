@@ -18,7 +18,6 @@ class CreateReportsTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('description');
-            $table->integer('votes');
 
             $table->foreignId('user_id')
                   ->constrained()
