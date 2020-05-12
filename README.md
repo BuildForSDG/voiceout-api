@@ -7,7 +7,9 @@ Nigeria is a very big country that needs the VoiceOut app in our battle against 
  
 We believe this app will serve as an efficient tool to report corruption/bribery cases and also provide a platform to access firsthand information about numerous loopholes that exist in our institutions. <br/>
 
+## Why
 
+This solution aim to solve the United Nations Sustainable Development Goal 16 which is aimed at providing access to justice for all and building effective, accountable and inclusive institutions at all levels. <br/>
 
 ## Usage
 <br/>
