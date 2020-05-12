@@ -9,7 +9,6 @@ $factory->define(Report::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence,
         'description' => $faker->text,
-        'votes' => $faker->randomNumber(2),
-        'institution_id' => $faker->numberBetween(1,5)
+        'institution_id' => $faker->numberBetween(1,5),
     ];
 });

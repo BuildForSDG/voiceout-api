@@ -41,7 +41,20 @@ class User extends Authenticatable
         return $this->hasMany(Report::class);
     }
 
-    public function institution() {
-        return $this->belongsTo(institution::class);
+    public function votes() {
+        return $this->hasMany(Vote::class);
     }
+
+    public function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
+    public function following() {
+        return $this->belongsToMany(Institution::class)->withTimestamps();
+    }
+
+    public function institution_owned() {
+        return $this->belongsTo(Institution::class, 'Institution_owned');
+    }
+
 }
