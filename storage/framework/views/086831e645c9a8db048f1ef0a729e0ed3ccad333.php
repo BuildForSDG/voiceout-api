@@ -90,6 +90,9 @@
                     <a href="https://github.com/orgs/BuildForSDG/teams/team-085">Team</a>
                 </div>
             </div>
+
+            Image: <img src="<?php echo e($product->getFirstMediaUrl('images')); ?>" />
+
         </div>
     </body>
 </html>

@@ -1,0 +1,14 @@
+<?php
+
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
+
+use App\Voice;
+use Faker\Generator as Faker;
+
+$factory->define(Voice::class, function (Faker $faker) {
+    return [
+    	'name' => $faker->unique()->company,
+    	'description' => $faker->text,
+    	'address' => $faker->address,
+    ];
+});

@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\User as UserResource;
-use App\User;
-
 use Illuminate\Http\Request;
+use App\Voice;
 
-class UserController extends Controller
+class VoiceController extends Controller
 {
+
 
     public function __construct() 
     {
         $this->middleware('auth:sanctum');
     }
 
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +22,8 @@ class UserController extends Controller
      */
     public function index()
     {
-
-        $users = User::all();
-        return response()->json($users);
+        $voices = Voice::with(['user'])->get();
+        return response()->json($voices);
     }
 
     /**
@@ -36,39 +34,31 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //   return response()->json([
-        //     'name' => 'Johnson',
-        // ]);
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Voice $voice)
     {
-        $role = $user->role;
-
-        if ($role == 'voice') {
-            $user = $user->load('voice');
-        } else {
-            $user = $user->load('institution');
+        if ($voice) {
+            $voice = $voice->load('user');
+            return response()->json($voice);
         }
-
-        return response()->json($user);
-
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +66,10 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\User  $user
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(User $user)
+    public function destroy($id)
     {
         //
     }

@@ -21,6 +21,10 @@ use Illuminate\Support\Facades\Hash;
 // });
 
 Route::apiResource('/users', 'UserController');
+Route::apiResource('/reports', 'ReportController');
+Route::apiResource('/institutions', 'InstitutionController');
+Route::apiResource('/voices', 'VoiceController');
+Route::apiResource('/comments', 'CommentController');
 
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');

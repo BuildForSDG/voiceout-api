@@ -8,7 +8,10 @@ class Comment extends Model
 {
 
 	protected $guarded = [];
-    
+	
+    // protected $with = ['user'];
+    // protected $hiddden = ['user_id'];
+
 	public function user() {
 		return $this->belongsTo(User::class);
 	}

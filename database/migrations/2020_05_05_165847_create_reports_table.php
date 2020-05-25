@@ -18,15 +18,13 @@ class CreateReportsTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->text('description');
+            $table->string('sector');
 
-            $table->foreignId('user_id')
-                  ->constrained()
-                  ->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->foreignId('institution_id')
-                  ->constrained()
-                  ->onDelete('cascade');
-
+            $table->unsignedBigInteger('institution_id')->nullable();
+            $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');
         });
     }
 

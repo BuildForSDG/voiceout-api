@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Auth;
 
 
 use App\User;
+use App\Voice;
+use App\Institution;
+
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -20,36 +23,91 @@ class AuthController extends Controller
 			return response($error, 422);
 		}
 
-		if ($role == 'user') {
-			$validated = $request->validate([
-				'email' => 'required|email',
-				'password' => 'required',  
-				'first_name' => 'required|string',
-				'last_name' => 'required|string',
+		$validated = $request->validate([
+			'email' => 'required|email',
+			'password' => 'required',  
+			'first_name' => 'string',
+			'last_name' => 'string',
+			'name' => 'string',
+			'description' => 'string',
+			'address' => 'string'
+		]);
+
+		if ($role == 'voice') {
+			$voice = Voice::create([
+				'name' => $validated['name'],
+				'description' => $validated['description'],
+				'address' => $validated['address']
 			]);
 
-		} else {
-			$validated = $request->validate([
-				'email' => 'required|email',
-				'password' => 'required',  
-				'name' => 'required|string',
-				'description' => 'required|string',
-				'address' => 'required|string'
+			$voice->user()->create([
+				'email' => $validated['email'],
+				'password' => Hash::make($validated['password']),
+				'role' => $role
 			]);
-		}
 
+			$user = $voice->user->load('voice');
+			$response = [
+				'user' => $user,
+				'message' => 'voice created successfully'
+			];
+			return response($response, 201);
+			
 
-		$user = User::create($validated);
-		$user->password = Hash::make($request->password);
-		$user->role = $role;
-		$user->save();
+		} elseif ($role == 'institution') {	
+			
+			$id = $request->institution_id;
 
-		$response = [
-			'user' => $user,
-			'message' => 'user created successfully'
-		];
-		return response($response, 201);
+			if (!$id) {
 
+				$response = [
+					'message' => 'institution id is required'
+				];
+				return response($response, 404);			
+			}
+
+			$institution = Institution::find($id);
+
+			if (!$institution) {
+				$response = [
+					'message' => 'institution not found'
+				];
+				return response($response, 404);					
+			}
+
+			$institution->user()->create([
+				'email' => $validated['email'],
+				'password' => Hash::make($validated['password']),
+				'role' => $role
+			]);	
+
+			$user = $institution->user->load('institution');
+
+			$response = [
+				'user' => $user,
+				'message' => 'institution created successfully'
+			];
+			return response($response, 201);
+			
+
+		} elseif ($role == 'user') {
+			$user = User::create([
+				'email' => $validated['email'],
+				'password' => $validated['password'],
+				'first_name' => $validated['first_name'],
+				'last_name' => $validated['last_name']
+			]);
+
+			$user->password = Hash::make($request->password);
+			$user->save();
+
+			$response = [
+				'user' => $user,
+				'message' => 'user created successfully'
+			];
+			return response($response, 201);
+
+		}	
 	}
 
 	public function login(Request $request) {

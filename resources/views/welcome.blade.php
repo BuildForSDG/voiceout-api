@@ -90,6 +90,9 @@
                     <a href="https://github.com/orgs/BuildForSDG/teams/team-085">Team</a>
                 </div>
             </div>
+
+            Image: <img src="/storage/app/public/8/DSC_0087.jpg" />
+
         </div>
     </body>
 </html>

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Report;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+// Route::get('/image', function () {
+// 	// $hi = 'me';
+
+// 	$report = Report::find(39);
+
+//     return view('image', [ 'report' => $report ] );
+// });
 
 
 // Route::get('/users', function () {

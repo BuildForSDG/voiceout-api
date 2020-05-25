@@ -7,10 +7,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +21,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $guarded = [];
+    // protected $appends = ['url'];
+
+
+    // protected $with = ['voice', 'institution'];
+
+
 
     /**
      * The attributes that should be hidden for arrays.
@@ -53,8 +62,24 @@ class User extends Authenticatable
         return $this->belongsToMany(Institution::class)->withTimestamps();
     }
 
-    public function institution_owned() {
-        return $this->belongsTo(Institution::class, 'Institution_owned');
+    public function institution() {
+        return $this->belongsTo(Institution::class);
     }
+
+    public function voice() {
+        return $this->belongsTo(Voice::class);
+    }
+
+   
+
+
+    // public function getUrlAttribute() {
+    //     $images = $this->getMedia('images');
+    //      foreach($images as $image) {
+    //         $imagesUrl[] = $image->getUrl();
+
+    //     }
+    //     dd($this->getFirstMediaUrl('images'));
+    // }
 
 }
