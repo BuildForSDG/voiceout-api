@@ -20,12 +20,19 @@ use Illuminate\Support\Facades\Hash;
 //     return $request->user();
 // });
 
-Route::apiResource('/users', 'UserController');
-Route::apiResource('/reports', 'ReportController');
-Route::apiResource('/institutions', 'InstitutionController');
-Route::apiResource('/voices', 'VoiceController');
-Route::apiResource('/comments', 'CommentController');
 
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
+
+Route::get('/users/{user_id}/reports', 'UserController@reports');
+Route::apiResource('/users', 'UserController');
+Route::apiResource('/reports', 'ReportController');
+
+Route::get('/institutions/{institution_id}/reports', 'InstitutionController@reports');
+Route::get('/institutions/{institution_id}/followers', 'InstitutionController@followers');
+Route::apiResource('/institutions', 'InstitutionController');
+
+Route::apiResource('/voices', 'VoiceController');
+Route::apiResource('/comments', 'CommentController');
+

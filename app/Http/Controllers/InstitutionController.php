@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Institution;
+use App\Report;
 
 
 class InstitutionController extends Controller
@@ -51,7 +52,7 @@ class InstitutionController extends Controller
     public function show(Institution $institution)
     {
         if ($institution) {
-            $institutions = $institution->load('reports', 'followers');
+            $institutions = $institution->load('owner', 'reports', 'followers');
             return response()->json($institution);
         }
      
@@ -78,5 +79,16 @@ class InstitutionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function reports(Request $request, $id) {
+        $reports = Report::where('institution_id', $id)->get();
+        return response()->json($reports);
+    }
+
+    public function followers(Request $request, $id) {
+        $institution = Institution::find($id);
+        $followers = $institution->followers;
+        return response()->json($followers);
     }
 }

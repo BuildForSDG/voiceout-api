@@ -26,9 +26,7 @@ class ReportController extends Controller
     public function index()
     {
 
-        // $reports = Report::with(['institution', 'institution.followers', 'votes', 'comments'])->get();
-
-        $reports = Report::all();
+        $reports = Report::with(['user', 'institution'])->get();
         return response()->json($reports);
     }
 

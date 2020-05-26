@@ -14,7 +14,6 @@ class Report extends Model implements HasMedia
 	protected $guarded = [];
     protected $appends = ['media_url'];
     protected $hidden = ['media', 'user_id', 'institution_id'];
-    protected $with = ['user', 'institution'];
 
 
     public function user() {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\User as UserResource;
 use App\User;
+use App\Report;
 
 use Illuminate\Http\Request;
 
@@ -82,5 +83,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function reports(Request $request, $id) {
+        $reports = Report::where('user_id', $id)->get();
+        return response()->json($reports);
     }
 }

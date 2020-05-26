@@ -19,6 +19,7 @@ Route::get('/', function () {
 });
 
 
+
 // Route::get('/image', function () {
 // 	// $hi = 'me';
 
