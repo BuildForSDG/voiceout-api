@@ -91,7 +91,7 @@
                 </div>
             </div>
 
-            Image: <img src="<?php echo e($product->getFirstMediaUrl('images')); ?>" />
+            Image: <img src="/storage/app/public/8/DSC_0087.jpg" />
 
         </div>
     </body>

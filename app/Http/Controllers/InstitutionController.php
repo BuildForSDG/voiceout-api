@@ -39,8 +39,19 @@ class InstitutionController extends Controller
      */
     public function store(Request $request)
     {
-        
-       
+
+         $institution = Institution::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'address' => $request->address,
+        ]);
+
+
+         $response = [
+            'institution' => $institution,
+            'message' => 'institution created successfully'
+        ];
+        return response($response, 201);
     }
 
     /**
