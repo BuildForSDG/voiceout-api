@@ -12,25 +12,95 @@ class Report extends Model implements HasMedia
     use InteractsWithMedia;
 
 	protected $guarded = [];
-    protected $appends = ['media_url'];
-    protected $hidden = ['media', 'user_id', 'institution_id'];
+    protected $appends = ['media_url', 'upvoted', 'downvoted', 'status'];
+    
+    protected $hidden = ['media'];
 
 
     public function user() {
     	return $this->belongsTo(User::class);
     }
 
-    public function institution() {
-    	return $this->belongsTo(Institution::class);
+    public function sector() {
+    	return $this->belongsToMany(Sector::class)->withTimestamps();
     }
 
     public function votes() {
-    	return $this->hasMany(Vote::class);
+    	return $this->belongsToMany(User::class, 'votes')->withPivot('vote');
+
+        // return $vote->count();
     }
+
 
     public function comments() {
         return $this->hasMany(Comment::class);
     }
+
+
+    // public function getTotalVotesAttribute() {
+    //   $vote = $this->votes();
+    //   return $vote->count();
+    // }
+
+    public function getUpvotedAttribute() {
+        $votes = $this->votes()->where('vote', true)->get();
+        return $votes->count();
+
+        // $vote = $this->votes()
+        // return $vote;
+
+        if ($vote) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getDownvotedAttribute() {
+        $votes = $this->votes()->where('vote', false)->get();
+        return $votes->count();
+
+    }
+
+
+    // public function getReasonAttribute() {
+    //     $votes = $this->votes()->firstWhere('vote', false);
+    //     return $votes->reason();
+    // }
+
+    public function getStatusAttribute() {
+        $user = auth('sanctum')->user();
+        $user_id = $user->id;
+        
+        // dd($vote_data);
+
+        if ($this->user_id == $user_id ) {
+            return 'creator';
+        } else {
+            $vote_data = $this->votes()->firstWhere( 'user_id', $user_id );
+
+            if (!$vote_data) {
+                return 'not voted';
+            } else {
+
+                // dd($vote_data->pivot->vote);
+
+                if ($vote_data->pivot->vote == true) {
+                    return 'upvoted';
+                } else {
+                    return 'downvoted';
+                }
+            }
+
+
+        }
+
+      
+
+
+  
+    }
+
 
  public function registerMediaCollections(): void {
          $this->addMediaCollection('images');

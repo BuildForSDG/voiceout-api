@@ -24,9 +24,22 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+           $report = Report::find($id);
+           if (!$report) {
+            return;
+        }
+
+        $comment = $report->comments()->create([
+            'description' => $request->description
+        ]);
+
+        $response = [
+            'comment' => $comment,
+            'message' => 'comment successful'
+        ];
+        return response($response, 201);
     }
 
     /**

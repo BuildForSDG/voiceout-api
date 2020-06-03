@@ -9,7 +9,8 @@ $factory->define(Report::class, function (Faker $faker) {
     return [
         'title' => $faker->sentence,
         'description' => $faker->text,
-        'institution_id' => $faker->numberBetween(1,5),
-        'sector' => $faker->randomElement(['finance', 'government', 'science and tech', 'agriculture', 'others']),
+        'institution_name' => $faker->unique()->company,
+        'address' => $faker->address,
+        'state' => $faker->state
     ];
 });

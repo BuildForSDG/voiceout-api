@@ -50,14 +50,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $role = $user->role;
-
-        if ($role == 'voice') {
-            $user = $user->load('voice');
-        } else {
-            $user = $user->load('institution');
-        }
-
+    
         return response()->json($user);
 
     }

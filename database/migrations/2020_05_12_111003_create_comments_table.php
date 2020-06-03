@@ -18,13 +18,11 @@ class CreateCommentsTable extends Migration
             $table->timestamps();
             $table->text('description');
 
-            $table->foreignId('report_id')
-                ->constrained()
-                ->onDelete('cascade');
+            $table->foreignId('report_id')->constrained()->onDelete('cascade');
+            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
 
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

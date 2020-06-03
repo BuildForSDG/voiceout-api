@@ -17,13 +17,10 @@ class CreateVotesTable extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onDelete('cascade');
-
-            $table->foreignId('report_id')
-                ->constrained()
-                ->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('report_id')->constrained()->onDelete('cascade');
+            $table->boolean('vote')->nullable();
+            $table->text('reason')->nullable();
 
         });
     }

@@ -51,26 +51,17 @@ class User extends Authenticatable implements HasMedia
     }
 
     public function votes() {
-        return $this->hasMany(Vote::class);
+        return $this->belongsToMany(Report::class, 'votes')->withPivot('vote');
     }
 
     public function comments() {
         return $this->hasMany(Comment::class);
     }
 
-    public function following() {
-        return $this->belongsToMany(Institution::class)->withTimestamps();
-    }
+    // public function votes() {
+    //     return $this->belongsToMany(Report::class);
+    // }
 
-    public function institution() {
-        return $this->belongsTo(Institution::class);
-    }
-
-    public function voice() {
-        return $this->belongsTo(Voice::class);
-    }
-
-   
 
 
     // public function getUrlAttribute() {

@@ -28,23 +28,3 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
-
-
-$factory->state(User::class, 'voice', function(Faker $faker) {
-	return 	[
-		'first_name' => null,
-		'last_name' => null,
-		'role' => 'voice',
-		'voice_id' => $faker->unique()->numberBetween(1,5)
-	];
-});
-
-
-$factory->state(User::class, 'institution', function(Faker $faker) {
-	return 	[
-		'first_name' => null,
-		'last_name' => null,
-		'role' => 'institution',
-		'institution_id' => $faker->unique()->numberBetween(1,10)
-	];
-});

@@ -22,7 +22,7 @@ class VoiceController extends Controller
      */
     public function index()
     {
-        $voices = Voice::with(['user'])->get();
+        $voices = Voice::all();
         return response()->json($voices);
     }
 
@@ -46,7 +46,6 @@ class VoiceController extends Controller
     public function show(Voice $voice)
     {
         if ($voice) {
-            $voice = $voice->load('user');
             return response()->json($voice);
         }
     }

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Report;
 use App\User;
 use App\Institution;
+use App\Vote;
+use App\Comment;
 
 
 class ReportController extends Controller
@@ -23,11 +25,19 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $state = $request->query('state');
+        if ($state) {
+            $reports = Report::where('state', $state)->get();
+           return response()->json($reports);
 
-        $reports = Report::with(['user', 'institution'])->get();
+        }
+
+        $reports = Report::all();
         return response()->json($reports);
+
+
     }
 
     /**
@@ -41,59 +51,36 @@ class ReportController extends Controller
         //verify
 
 
-        $id = $request->institution_id;
-        $institution = Institution::find($id);
         $user = auth('sanctum')->user();
+        $sector_id = json_decode($request->sector_id);
 
-        $new = $request->new_institution;
-        $response = null;
+        $report = $user->reports()->create([
+           'title' => $request->title,
+           'description' => $request->description,
+           'institution_name' => $request->institution_name,
+           'address' => $request->address,
+           'state' => $request->state
+       ]);
 
-        if (!$new) {
-
-            $report = $user->reports()->create([
-               'title' => $request->title,
-               'description' => $request->description,
-               'sector' => $request->sector
-           ]);
-
-            $report->institution()->associate($institution);
-            $report->save();
-
-            if ( $request->hasFile('image') ) {
-                if ( $request->file('image')->isValid() ) {
-                    $report->addMediaFromRequest('image')->toMediaCollection('images');
-                }  
-
-            }
-
-            if ( $request->hasFile('video') ) {
-                if ( $request->file('video')->isValid() ) {
-                    $report->addMediaFromRequest('video')->toMediaCollection('videos');
-                }
-            }
-
-        } else {
-               $institution = Institution::create([
-                    'name' => $request->institution_name,
-                    'description' => $request->institution_description,
-                    'address' => $request->address,
-                ]);
-
-               $report = $institution->reports()->create([
-                    'title' => $request->title,
-                    'description' => $request->description,
-                    'sector' => $request->sector
-                ]);
-
-               $report->user()->associate($user);
+        if ($sector_id) {
+            $report->sector()->attach($sector_id);
         }
-        
-        $media = [
-            'image' => null,
-            'video' => null
-        ];
+        $report->save();
 
-        $report = $report->load('institution', 'institution.followers', 'user');
+        if ( $request->hasFile('image') ) {
+            if ( $request->file('image')->isValid() ) {
+                $report->addMediaFromRequest('image')->toMediaCollection('images');
+            }  
+        }
+
+        if ( $request->hasFile('video') ) {
+            if ( $request->file('video')->isValid() ) {
+                $report->addMediaFromRequest('video')->toMediaCollection('videos');
+            }
+        }
+
+        $report = $report->load('user');
+
         $response = [
             'report' => $report,
             'message' => 'Report successful'
@@ -110,7 +97,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        $report = $report->load('votes', 'comments');
+        $report = $report->load('comments');
 
         if ($report) {
             return response()->json($report);
@@ -136,8 +123,94 @@ class ReportController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
     }
+
+    public function upvote(Request $request, $id) {
+
+        $user = auth('sanctum')->user();
+        $user_id = $user->id;
+
+        $vote = Vote::firstOrNew([
+            'user_id' => $user_id,
+            'report_id' => $id,
+        ]);
+
+        $vote->vote = true;
+        $vote->save();
+
+        $response = [
+            'vote' => $vote,
+            'message' => 'upvoted successfully'
+        ];
+        return response($response, 201);
+    }
+
+    public function downvote(Request $request, $id) {
+
+        //return error if d report doesn't exist
+
+        $user = auth('sanctum')->user();
+        $user_id = $user->id;
+
+        $vote = Vote::firstOrNew([
+            'user_id' => $user_id,
+            'report_id' => $id
+        ]);
+
+        $vote->vote = false;
+        $vote->reason = $request->reason;
+        $vote->save();
+        
+
+        $response = [
+            'vote' => $vote,
+            'message' => 'downvoted successfully'
+        ];
+        return response($response, 201);
+    }
+
+    public function comment(Request $request, $id) {
+
+        // $id = $request->report_id;
+        $report = Report::find($id);
+        if (!$report) {
+            return;
+        }
+
+        $comment = $report->comments()->create([
+            'description' => $request->description
+        ]);
+
+        $user = auth('sanctum')->user();
+        $comment->user_id = $user->id;
+        $comment->save();
+
+        $response = [
+            'comment' => $comment,
+            'message' => 'comment successful'
+        ];
+        return response($response, 201);
+    }
+
+    public function comments(Request $request, $id) {
+
+        // $id = $request->hi;
+        $report = Report::find($id);
+
+        if (!$report) {
+            return;
+        }
+        
+        $comments = Comment::where('report_id', $id)->get();
+        return response()->json($comments);
+
+    }
+
+    public function hi(Request $request) {
+        return 'yoo';
+    } 
+
+
 }

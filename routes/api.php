@@ -24,15 +24,17 @@ use Illuminate\Support\Facades\Hash;
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
+Route::post('/reports/{report_id}/upvote', 'ReportController@upvote');
+Route::post('/reports/{report_id}/downvote', 'ReportController@downvote');
+Route::post('/reports/{report_id}/comment', 'ReportController@comment');
 
 Route::get('/users/{user_id}/reports', 'UserController@reports');
-Route::apiResource('/users', 'UserController');
-Route::apiResource('/reports', 'ReportController');
-
-Route::get('/institutions/{institution_id}/reports', 'InstitutionController@reports');
-Route::get('/institutions/{institution_id}/followers', 'InstitutionController@followers');
-Route::apiResource('/institutions', 'InstitutionController');
+Route::get('/reports/hi', 'ReportController@hi');
+Route::get('/reports/{report_id}/comments', 'ReportController@comments');
+Route::get('/sectors/{sector_id}/reports', 'SectorController@reports');
 
 Route::apiResource('/voices', 'VoiceController');
 Route::apiResource('/comments', 'CommentController');
-
+Route::apiResource('/reports', 'ReportController');
+Route::apiResource('/users', 'UserController');
+Route::apiResource('/sectors', 'SectorController');

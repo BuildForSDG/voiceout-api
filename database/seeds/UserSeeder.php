@@ -14,11 +14,6 @@ class UserSeeder extends Seeder
     	factory(App\User::class, 10)->create()->each(function($user) {
     		$user->reports()->save(factory(App\Report::class)->make());
     	});
-
-        factory(\App\User::class, 5)->states('voice')->create();
-
-        factory(\App\User::class, 2)->states('institution')->create();
-
     }
 }
 

@@ -11,6 +11,6 @@ class VoiceSeeder extends Seeder
      */
     public function run()
     {
-    	factory(App\Voice::class, 5)->create();
+    	factory(App\Voice::class, 10)->create();
     }
 }

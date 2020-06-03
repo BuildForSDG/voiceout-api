@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Voice::class, function (Faker $faker) {
     return [
     	'name' => $faker->unique()->company,
-    	'description' => $faker->text,
     	'address' => $faker->address,
+    	'email' => $faker->email,
     ];
 });

@@ -17,8 +17,10 @@ class CreateVoicesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->text('description');
-            $table->string('address');
+            $table->text('address');
+            $table->string('email');
+            $table->string('facebook')->nullable();
+            $table->string('twitter')->nullable();
         });
     }
 

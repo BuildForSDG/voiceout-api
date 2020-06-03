@@ -15,16 +15,14 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
+
             $table->timestamps();
             $table->string('title');
             $table->text('description');
-            $table->string('sector');
-
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-
-            $table->unsignedBigInteger('institution_id')->nullable();
-            $table->foreign('institution_id')->references('id')->on('institutions')->onDelete('cascade');
+            $table->text('institution_name');
+            $table->string('state');
+            $table->text('address');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
@@ -38,8 +36,6 @@ class CreateReportsTable extends Migration
 
         Schema::create('reports', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['institution_id']);
-            $table->dropColumn(['user_id', 'institution_id']);
         });
 
         Schema::dropIfExists('reports');
