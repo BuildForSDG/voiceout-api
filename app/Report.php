@@ -14,7 +14,7 @@ class Report extends Model implements HasMedia
 	protected $guarded = [];
     protected $appends = ['media_url', 'upvoted', 'downvoted', 'status'];
     
-    protected $hidden = ['media'];
+    protected $hidden = ['media', 'user_id'];
 
 
     public function user() {
@@ -70,10 +70,13 @@ class Report extends Model implements HasMedia
 
     public function getStatusAttribute() {
         $user = auth('sanctum')->user();
-        $user_id = $user->id;
+
+        if (!$user) {
+            return 'user not logged in';
+        }
         
         // dd($vote_data);
-
+        $user_id = $user->id;
         if ($this->user_id == $user_id ) {
             return 'creator';
         } else {

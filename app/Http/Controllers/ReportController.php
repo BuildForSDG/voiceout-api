@@ -16,7 +16,11 @@ class ReportController extends Controller
 
     public function __construct() 
     {
-        $this->middleware('auth:sanctum');
+        if (array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
+            $this->middleware('auth:sanctum');
+        }
+    
+        // $this->middleware('auth:sanctum');
     }
 
 
@@ -28,21 +32,23 @@ class ReportController extends Controller
     public function index(Request $request)
     {
         $state = $request->query('state');
-        $limit = $request->querey('limit');
+        $limit = $request->query('limit');
 
-        if ($state) {
+
+        if ($state && $limit) {
+            $reports = Report::where('state', $state)->take($limit)->get();
+            return response()->json($reports);
+
+        } elseif ($state) {
             $reports = Report::where('state', $state)->get();
            return response()->json($reports);
 
-        }
-
-        if ($limit) {
-            $reports = Report::skip(0)->take($limit)->get();
+        } elseif ($limit) {
+            $reports = Report::take($limit)->get();
             return response()->json($reports);
-
         }
 
-        $reports = Report::all();
+        $reports = Report::with('user')->get();
         return response()->json($reports);
 
 
@@ -105,7 +111,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        $report = $report->load('comments');
+        $report = $report->load('comments', 'user');
 
         if ($report) {
             return response()->json($report);
@@ -215,10 +221,5 @@ class ReportController extends Controller
         return response()->json($comments);
 
     }
-
-    public function hi(Request $request) {
-        return 'yoo';
-    } 
-
 
 }

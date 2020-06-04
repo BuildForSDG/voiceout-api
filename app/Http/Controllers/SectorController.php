@@ -30,8 +30,9 @@ class SectorController extends Controller
     {
 
         $sector = Sector::create([
-            'name' => $request->name; 
+            'name' => $request->name
         ]);
+
 
         $response = [
             'sector' => $sector,

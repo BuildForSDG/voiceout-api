@@ -11,6 +11,6 @@ class SectorSeeder extends Seeder
      */
     public function run()
     {
-    	factory(App\Sector::class, 5)->create();
+    	factory(App\Sector::class, 9)->create();
     }
 }
