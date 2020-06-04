@@ -3,7 +3,7 @@ VoiceOut
 
 ## About
 
-Nigeria is a very big country that needs the VoiceOut app in our battle against Corruption. VoiceOut is an App that exposes Bribery, Corruption and Irregularities in Nigerian Institutions. 
+Nigeria is a very big country that needs the VoiceOut app in our battle against Corruption. VoiceOut is an App that exposes Irregularities, Bribery and Corruption in Nigerian Institutions. 
  
 We believe this app will serve as an efficient tool to report cases and also provide a platform to access firsthand information about numerous loopholes that exist in our institutions. <br/>
 
