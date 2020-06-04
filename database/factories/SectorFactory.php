@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Sector::class, function (Faker $faker) {
     return [
-        'name' => $faker->unique()->randomElement(['finance', 'government', 'science and tech', 'agriculture', 'others']),
+        'name' => $faker->unique()->randomElement(['Finance', 'Government', 'Science and Technology', 'Agriculture', 'Oil and Gas', 'Security', 'Education', 'Energy', 'Others']),
     ];
 });

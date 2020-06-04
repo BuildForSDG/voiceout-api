@@ -9,12 +9,6 @@ use Illuminate\Http\Request;
 class SectorController extends Controller
 {
 
-        public function __construct() 
-    {
-        $this->middleware('auth:sanctum');
-    }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -34,7 +28,16 @@ class SectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $sector = Sector::create([
+            'name' => $request->name; 
+        ]);
+
+        $response = [
+            'sector' => $sector,
+            'message' => 'sector created successfully'
+        ];
+        return response($response, 201);
     }
 
     /**

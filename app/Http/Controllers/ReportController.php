@@ -28,9 +28,17 @@ class ReportController extends Controller
     public function index(Request $request)
     {
         $state = $request->query('state');
+        $limit = $request->querey('limit');
+
         if ($state) {
             $reports = Report::where('state', $state)->get();
            return response()->json($reports);
+
+        }
+
+        if ($limit) {
+            $reports = Report::skip(0)->take($limit)->get();
+            return response()->json($reports);
 
         }
 
