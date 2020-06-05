@@ -48,7 +48,7 @@ class ReportController extends Controller
             return response()->json($reports);
         }
 
-        $reports = Report::with('user')->get();
+        $reports = Report::with( ['user', 'sector'] )->get();
         return response()->json($reports);
 
 
@@ -66,7 +66,8 @@ class ReportController extends Controller
 
 
         $user = auth('sanctum')->user();
-        $sector_id = json_decode($request->sector_id);
+        $sectors = $request->sector_id;
+
 
         $report = $user->reports()->create([
            'title' => $request->title,
@@ -76,8 +77,8 @@ class ReportController extends Controller
            'state' => $request->state
        ]);
 
-        if ($sector_id) {
-            $report->sector()->attach($sector_id);
+        if ($sectors) {
+            $report->sector()->attach($sectors);
         }
         $report->save();
 
@@ -93,7 +94,7 @@ class ReportController extends Controller
             }
         }
 
-        $report = $report->load('user');
+        $report = $report->load('user', 'sector');
 
         $response = [
             'report' => $report,
@@ -111,7 +112,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        $report = $report->load('comments', 'user');
+        $report = $report->load('comments', 'user', 'sector');
 
         if ($report) {
             return response()->json($report);
