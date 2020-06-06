@@ -33,6 +33,15 @@ class ReportController extends Controller
     {
         $state = $request->query('state');
         $limit = $request->query('limit');
+        $sector = $request->query('sector');
+
+
+
+        // if ($state || $limit) {
+        //     $reports = Report::with('user')->where('state', $state)->take($limit)->get();
+        //     return response()->json($reports);
+
+        // }
 
 
         if ($state && $limit) {
@@ -46,6 +55,11 @@ class ReportController extends Controller
         } elseif ($limit) {
             $reports = Report::with('user')->take($limit)->get();
             return response()->json($reports);
+        } elseif ($sector) {
+           $reports = Report::with(['user'])->whereHas('sector', function($q) use ($sector) {
+                $q->where('name', '=', $sector);
+           })->get();
+           return response()->json($reports);
         }
 
         $reports = Report::with( ['user', 'sector'] )->get();
