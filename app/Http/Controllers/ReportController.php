@@ -14,14 +14,13 @@ class ReportController extends Controller
 {
 
 
-    public function __construct() 
-    {
-        if (array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
-            $this->middleware('auth:sanctum');
-        }
+    // public function __construct() 
+    // {
+    //     if (array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
+    //         $this->middleware('auth:sanctum');
+    //     }
     
-        // $this->middleware('auth:sanctum');
-    }
+    // }
 
 
     /**
