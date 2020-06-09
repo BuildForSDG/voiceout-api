@@ -77,8 +77,6 @@ class ReportController extends Controller
     {
         //verify
 
-        error_log($request);
-
         $user = auth('sanctum')->user();
         $sectors = $request->sector_id;
 
