@@ -77,6 +77,7 @@ class ReportController extends Controller
     {
         //verify
 
+        dd($request->all());
 
         $user = auth('sanctum')->user();
         $sectors = $request->sector_id;
@@ -96,6 +97,7 @@ class ReportController extends Controller
         $report->save();
 
         if ( $request->hasFile('image') ) {
+
             if ( $request->file('image')->isValid() ) {
                 $report->addMediaFromRequest('image')->toMediaCollection('images', 's3');
             }  
