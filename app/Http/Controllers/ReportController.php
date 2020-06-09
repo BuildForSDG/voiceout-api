@@ -97,13 +97,13 @@ class ReportController extends Controller
 
         if ( $request->hasFile('image') ) {
             if ( $request->file('image')->isValid() ) {
-                $report->addMediaFromRequest('image')->toMediaCollection('images');
+                $report->addMediaFromRequest('image')->toMediaCollection('images', 's3');
             }  
         }
 
         if ( $request->hasFile('video') ) {
             if ( $request->file('video')->isValid() ) {
-                $report->addMediaFromRequest('video')->toMediaCollection('videos');
+                $report->addMediaFromRequest('video')->toMediaCollection('videos', 's3');
             }
         }
 
