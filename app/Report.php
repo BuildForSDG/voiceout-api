@@ -44,21 +44,21 @@ class Report extends Model implements HasMedia
 
     public function getUpvotedAttribute() {
         $votes = $this->votes()->where('vote', true)->get();
-        return $votes->count();
+        return $votes->pluck('id');
 
         // $vote = $this->votes()
         // return $vote;
 
-        if ($vote) {
-            return true;
-        } else {
-            return false;
-        }
+        // if ($vote) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
     }
 
     public function getDownvotedAttribute() {
         $votes = $this->votes()->where('vote', false)->get();
-        return $votes->count();
+        return $votes->pluck('id');
 
     }
 
