@@ -50,7 +50,6 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        dd ($user);
         return response()->json($user);
 
     }
@@ -64,7 +63,9 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+       $user->anonymous = $request->anonymous;
+       $user->save();
+       return response()->json($user);    
     }
 
     /**
@@ -81,12 +82,5 @@ class UserController extends Controller
     public function reports(Request $request, $id) {
         $reports = Report::where('user_id', $id)->get();
         return response()->json($reports);
-    }
-
-    public function anonymous(Request $request, $id) {
-        $user = User::find($id);
-        $user->anonymous = $request->anonymous;
-        $user->save();
-        return response()->json($user);
     }
 }
