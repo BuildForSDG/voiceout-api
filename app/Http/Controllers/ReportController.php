@@ -219,7 +219,7 @@ class ReportController extends Controller
             'comment' => $comment,
             'message' => 'comment successful'
         ];
-        return response($response, 201);
+        return response()->json($response, 201);
     }
 
     public function comments(Request $request, $id) {

@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Hash;
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
+Route::post('/users/{user_id}/anonymous', 'UserController@anonymous');
 Route::post('/reports/{report_id}/upvote', 'ReportController@upvote');
 Route::post('/reports/{report_id}/downvote', 'ReportController@downvote');
 Route::post('/reports/{report_id}/comment', 'ReportController@comment');
