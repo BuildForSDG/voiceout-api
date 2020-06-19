@@ -44,15 +44,15 @@ class ReportController extends Controller
 
 
         if ($state && $limit) {
-            $reports = Report::with('user')->where('state', $state)->take($limit)->get();
+            $reports = Report::with(['user', 'sector'])->where('state', $state)->take($limit)->get();
             return response()->json($reports);
 
         } elseif ($state) {
-            $reports = Report::with('user')->where('state', $state)->get();
+            $reports = Report::with(['user', 'sector'])->where('state', $state)->get();
            return response()->json($reports);
 
         } elseif ($limit) {
-            $reports = Report::with('user')->take($limit)->get();
+            $reports = Report::with(['user', 'sector'])->take($limit)->get();
             return response()->json($reports);
         } elseif ($sector) {
            $reports = Report::with(['user'])->whereHas('sector', function($q) use ($sector) {
