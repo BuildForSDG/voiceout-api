@@ -63,8 +63,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-       $user->anonymous = $request->anonymous;
-       $user->save();
        return response()->json($user);    
     }
 

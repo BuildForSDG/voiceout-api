@@ -14,7 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = Comment::all();
+        $comments = Comment::with('user:id,first_name,last_name,email')->get();
         return response()->json($comments);
     }
 
@@ -35,6 +35,7 @@ class CommentController extends Controller
             'description' => $request->description
         ]);
 
+        $comment = $comment->with('user:id,first_name,last_name,email');
         $response = [
             'comment' => $comment,
             'message' => 'comment successful'

@@ -86,7 +86,8 @@ class ReportController extends Controller
            'description' => $request->description,
            'institution_name' => $request->institution_name,
            'address' => $request->address,
-           'state' => $request->state
+           'state' => $request->state,
+           'anonymous' => $request->anonymous
        ]);
 
         if ($sectors) {
@@ -215,6 +216,7 @@ class ReportController extends Controller
         $comment->user_id = $user->id;
         $comment->save();
 
+        $comment = $comment->with('user:id,first_name,last_name,email');
         $response = [
             'comment' => $comment,
             'message' => 'comment successful'
@@ -231,7 +233,7 @@ class ReportController extends Controller
             return;
         }
         
-        $comments = Comment::where('report_id', $id)->get();
+        $comments = Comment::where('report_id', $id)->with('user:id,first_name,last_name,email')->get();
         return response()->json($comments);
 
     }

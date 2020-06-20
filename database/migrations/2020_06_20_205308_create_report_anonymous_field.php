@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserAnonymousField extends Migration
+class CreateReportAnonymousField extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateUserAnonymousField extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('reports', function (Blueprint $table) {
             $table->boolean('anonymous')->default(false);
+        });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('anonymous');
         });
     }
 
@@ -25,6 +29,8 @@ class CreateUserAnonymousField extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_anonymous_field');
+        Schema::table('reports', function (Blueprint $table) {
+            $table->dropColumn('anonymous');
+        });
     }
 }
