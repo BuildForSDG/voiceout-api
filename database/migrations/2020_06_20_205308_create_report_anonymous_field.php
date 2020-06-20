@@ -16,10 +16,6 @@ class CreateReportAnonymousField extends Migration
         Schema::table('reports', function (Blueprint $table) {
             $table->boolean('anonymous')->default(false);
         });
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('anonymous');
-        });
     }
 
     /**
