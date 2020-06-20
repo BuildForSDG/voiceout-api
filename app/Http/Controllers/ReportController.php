@@ -216,7 +216,7 @@ class ReportController extends Controller
         $comment->user_id = $user->id;
         $comment->save();
 
-        $comment = $comment->with('user:id,first_name,last_name,email');
+        $comment = $comment->load('user:id,first_name,last_name,email');
         $response = [
             'comment' => $comment,
             'message' => 'comment successful'
