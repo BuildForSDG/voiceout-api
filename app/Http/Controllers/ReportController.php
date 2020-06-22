@@ -8,6 +8,10 @@ use App\User;
 use App\Institution;
 use App\Vote;
 use App\Comment;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReportCase;
+
+
 
 
 class ReportController extends Controller
@@ -236,6 +240,37 @@ class ReportController extends Controller
         $comments = Comment::where('report_id', $id)->with('user:id,first_name,last_name,email')->get();
         return response()->json($comments);
 
+    }
+
+    public function mail(Request $request, $id) {
+
+        // Mail::to($request->user())->send(new ReportCase());
+
+        $report = Report::find($id);
+
+        $report_description = $report->description;
+        $imageUrl = $report->media_url['images'];
+        $videoUrl = $report->media_url['videos'];
+        $reportUrl = 'https://voiceout.netlify.app/report/' . $report->id;
+
+        if ($imageUrl) {   
+            $imageUrl = $imageUrl[0];
+        }
+
+        if ($videoUrl) {
+            $videoUrl = $videoUrl[0];
+        }
+
+
+        foreach (['johnsontodimu@gmail.com', 'toyinadesina60@gmail.com'] as $recipient) {
+            Mail::to($recipient)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));
+        }
+
+        $response = [
+            'message' => 'email sent successfully'
+        ];
+
+        return response()->json($response);
     }
 
 }

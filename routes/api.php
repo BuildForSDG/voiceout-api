@@ -27,6 +27,7 @@ Route::post('/logout', 'AuthController@logout');
 Route::post('/reports/{report_id}/upvote', 'ReportController@upvote');
 Route::post('/reports/{report_id}/downvote', 'ReportController@downvote');
 Route::post('/reports/{report_id}/comment', 'ReportController@comment');
+Route::post('/mail/{report_id}', 'ReportController@mail');
 
 Route::get('/users/{user_id}/reports', 'UserController@reports');
 Route::get('/reports/hi', 'ReportController@hi');

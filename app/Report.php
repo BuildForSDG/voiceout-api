@@ -31,7 +31,6 @@ class Report extends Model implements HasMedia
         // return $vote->count();
     }
 
-
     public function comments() {
         return $this->hasMany(Comment::class);
     }
@@ -41,6 +40,12 @@ class Report extends Model implements HasMedia
     //   $vote = $this->votes();
     //   return $vote->count();
     // }
+    
+
+    public function shared() {
+        return $this->hasMany(Voice::class);
+    }
+
 
     public function getUpvotedAttribute() {
         $votes = $this->votes()->where('vote', true)->get();

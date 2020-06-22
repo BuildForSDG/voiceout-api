@@ -23,6 +23,7 @@ class CreateReportsTable extends Migration
             $table->string('state');
             $table->text('address');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('voice_id')->constrained()->onDelete('cascade');
         });
     }
 
