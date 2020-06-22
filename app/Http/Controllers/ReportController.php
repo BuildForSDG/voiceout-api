@@ -262,7 +262,7 @@ class ReportController extends Controller
         }
 
 
-        foreach (['johnsontodimu@gmail.com'] as $recipient) {
+        foreach (['johnsontodimu@gmail.com', 'toyinadesina60@gmail.com'] as $recipient) {
             Mail::to($recipient)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));
         }
 
