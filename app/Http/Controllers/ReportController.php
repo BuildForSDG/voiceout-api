@@ -264,9 +264,9 @@ class ReportController extends Controller
 
         $recipients = $request->recipients;
         return respnse($recipients);
-        foreach ($recipients as $recipient) {
-            Mail::to($recipient)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));
-        }
+        // foreach ($recipients as $recipient) {
+        //     Mail::to($recipient)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));
+        // }
 
         $response = [
             'message' => 'email sent successfully'
