@@ -85,6 +85,8 @@ class ReportController extends Controller
         $sectors = $request->sector_id;
 
         // error_log($request->sector_id);
+        
+        $sectors = json_decode($sectors);
 
         $report = $user->reports()->create([
            'title' => $request->title,
