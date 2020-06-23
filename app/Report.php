@@ -11,22 +11,22 @@ class Report extends Model implements HasMedia
 
     use InteractsWithMedia;
 
-	protected $guarded = [];
+    protected $guarded = [];
     protected $appends = ['media_url', 'upvoted', 'downvoted', 'status'];
     
     protected $hidden = ['media', 'user_id'];
 
 
     public function user() {
-    	return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function sector() {
-    	return $this->belongsToMany(Sector::class)->withTimestamps();
+        return $this->belongsToMany(Sector::class)->withTimestamps();
     }
 
     public function votes() {
-    	return $this->belongsToMany(User::class, 'votes')->withPivot('vote');
+        return $this->belongsToMany(User::class, 'votes')->withPivot('vote');
 
         // return $vote->count();
     }
@@ -42,8 +42,8 @@ class Report extends Model implements HasMedia
     // }
     
 
-    public function shared() {
-        return $this->hasMany(Voice::class);
+    public function voices() {
+        return $this->belongsToMany(Voice::class);
     }
 
 
@@ -102,11 +102,6 @@ class Report extends Model implements HasMedia
 
 
         }
-
-      
-
-
-  
     }
 
 

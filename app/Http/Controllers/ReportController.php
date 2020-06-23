@@ -23,9 +23,7 @@ class ReportController extends Controller
         if (array_key_exists('HTTP_AUTHORIZATION', $_SERVER)) {
             $this->middleware('auth:sanctum');
         }
-    
     }
-
 
     /**
      * Display a listing of the resource.
@@ -65,7 +63,7 @@ class ReportController extends Controller
            return response()->json($reports);
         }
 
-        $reports = Report::with( ['user', 'sector'] )->get();
+        $reports = Report::with( ['user', 'sector', 'voices'] )->get();
         return response()->json($reports);
 
 
@@ -131,7 +129,7 @@ class ReportController extends Controller
      */
     public function show(Report $report)
     {
-        $report = $report->load('comments', 'user', 'sector');
+        $report = $report->load('comments', 'user', 'sector', 'voices');
 
         if ($report) {
             return response()->json($report);
@@ -159,6 +157,8 @@ class ReportController extends Controller
      */
     public function destroy(Request $request, $id)
     {
+        $report = Report::find($id);
+        $report->delete();
     }
 
     public function upvote(Request $request, $id) {

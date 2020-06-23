@@ -11,8 +11,7 @@ class Voice extends Model
 	// protected $with = ['user'];
 
 
-	public function report() {
-		return $this->belongsTo(Report::class);
+	public function reports() {
+		return $this->belongsToMany(Report::class);
 	}
-	
 }

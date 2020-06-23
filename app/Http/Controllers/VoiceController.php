@@ -11,7 +11,7 @@ class VoiceController extends Controller
 
     public function __construct() 
     {
-        $this->middleware('auth:sanctum');
+
     }
 
     
@@ -22,6 +22,9 @@ class VoiceController extends Controller
      */
     public function index()
     {
+
+        // $voices = Voice::with('reports')->get();
+
         $voices = Voice::all();
         return response()->json($voices);
     }
@@ -46,6 +49,8 @@ class VoiceController extends Controller
     public function show(Voice $voice)
     {
         if ($voice) {
+
+            $voice = $voice->load('reports');
             return response()->json($voice);
         }
     }
@@ -70,6 +75,7 @@ class VoiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $voice = Voice::find($id);
+        $voice->delete();
     }
 }
