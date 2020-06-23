@@ -84,6 +84,7 @@ class ReportController extends Controller
         $user = auth('sanctum')->user();
         $sectors = $request->sector_id;
 
+        dd ($sectors);
 
         $report = $user->reports()->create([
            'title' => $request->title,
