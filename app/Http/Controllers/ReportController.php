@@ -88,7 +88,7 @@ class ReportController extends Controller
 
         // dd($request->sector_id);
 
-        return response($sectors);
+        return response($arr);
 
         $report = $user->reports()->create([
            'title' => $request->title,
