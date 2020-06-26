@@ -37,7 +37,20 @@ class VoiceController extends Controller
      */
     public function store(Request $request)
     {
+        $voice = Voice::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'facebook' => $request->facebook,
+            'twitter' => $request->twitter,
+            'address' => $request->address,
+        ]);
 
+
+        $response = [
+            'voice' => $voice,
+            'message' => 'voice created successfully'
+        ];
+        return response($response, 201);
     }
 
     /**

@@ -247,31 +247,31 @@ class ReportController extends Controller
 
         // Mail::to($request->user())->send(new ReportCase());
 
-        $report = Report::find($id);
+        // $report = Report::find($id);
 
-        $report_description = $report->description;
-        $imageUrl = $report->media_url['images'];
-        $videoUrl = $report->media_url['videos'];
-        $reportUrl = 'https://voiceout.netlify.app/report/' . $report->id;
+        // $report_description = $report->description;
+        // $imageUrl = $report->media_url['images'];
+        // $videoUrl = $report->media_url['videos'];
+        // $reportUrl = 'https://voiceout.netlify.app/report/' . $report->id;
 
-        if ($imageUrl) {   
-            $imageUrl = $imageUrl[0];
-        }
+        // if ($imageUrl) {   
+        //     $imageUrl = $imageUrl[0];
+        // }
 
-        if ($videoUrl) {
-            $videoUrl = $videoUrl[0];
-        }
+        // if ($videoUrl) {
+        //     $videoUrl = $videoUrl[0];
+        // }
 
-        $recipients = $request->recipients;
-        foreach ($recipients as $recipient) {
-            Mail::to($recipient)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));
-        }
+        // $recipients = $request->recipients;
+        // foreach ($recipients as $recipient) {
+        //     Mail::to($recipient)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));
+        // }
 
-        $response = [
-            'message' => 'email sent successfully'
-        ];
+        // $response = [
+        //     'message' => 'email sent successfully'
+        // ];
 
-        return response()->json($response);
+        // return response()->json($response);
     }
 
 }
