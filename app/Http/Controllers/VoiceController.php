@@ -83,6 +83,8 @@ class VoiceController extends Controller
         $voice = Voice::find($id);
         $voice->twitter = $request->twitter;
         $voice->facebook = $request->facebook;
+        $voice->save();
+        return response()->json($voice);
     }
 
     /**
