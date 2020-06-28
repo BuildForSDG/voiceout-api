@@ -45,6 +45,7 @@ class VoiceController extends Controller
             'twitter' => $request->twitter,
             'web' => $request->web,
             'address' => $request->address,
+            'logo' => $request->logo
         ]);
 
 
