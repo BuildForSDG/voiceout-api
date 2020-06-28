@@ -39,9 +39,11 @@ class VoiceController extends Controller
     {
         $voice = Voice::create([
             'name' => $request->name,
+            'description' => $request->description,
             'email' => $request->email,
             'facebook' => $request->facebook,
             'twitter' => $request->twitter,
+            'web' => $request->web,
             'address' => $request->address,
         ]);
 

@@ -22,8 +22,11 @@ class CreateReportsTable extends Migration
             $table->text('institution_name');
             $table->string('state');
             $table->text('address');
+            $table->boolean('anonymous')->default(false);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('voice_id')->constrained()->onDelete('cascade');
+
+            $table->unsignedBigInteger('voice_id')->nullable();
+            $table->foreign('voice_id')->references('id')->on('voices')->onDelete('cascade');
         });
     }
 
@@ -34,11 +37,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-
-        Schema::create('reports', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-        });
-
         Schema::dropIfExists('reports');
 
     }

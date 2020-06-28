@@ -10,5 +10,6 @@ $factory->define(Voice::class, function (Faker $faker) {
     	'name' => $faker->unique()->company,
     	'address' => $faker->address,
     	'email' => $faker->email,
+    	'description' => $faker->text,
     ];
 });

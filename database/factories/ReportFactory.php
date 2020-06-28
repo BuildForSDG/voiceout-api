@@ -12,6 +12,6 @@ $factory->define(Report::class, function (Faker $faker) {
         'institution_name' => $faker->unique()->company,
         'address' => $faker->address,
         'state' => $faker->state,
-        'anonnymous' => $faker->boolean(50)
+        'anonymous' => $faker->boolean(50)
     ];
 });
