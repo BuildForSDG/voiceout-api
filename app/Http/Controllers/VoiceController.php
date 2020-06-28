@@ -80,7 +80,9 @@ class VoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $voice = Voice::find($id);
+        $voice->twitter = $request->twitter;
+        $voice->facebook = $request->facebook;
     }
 
     /**
