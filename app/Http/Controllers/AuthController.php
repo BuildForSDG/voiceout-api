@@ -25,7 +25,7 @@ class AuthController extends Controller
 			'last_name' => 'string',
 		]);
 
-		$user = User::create([
+		$user = App\User::create([
 			'email' => $validated['email'],
 			'password' => $validated['password'],
 			'first_name' => $validated['first_name'],
@@ -49,7 +49,7 @@ class AuthController extends Controller
 			'password' => 'required'
 		]);
 
-		$user = User::firstWhere('email', $request->email);
+		$user = App\User::firstWhere('email', $request->email);
 
 		if (!$user || !Hash::check($request->password, $user->password)) {
 			return response([
