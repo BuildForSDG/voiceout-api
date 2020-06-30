@@ -144,7 +144,7 @@ class AuthController extends Controller
         	$user->sendApiEmailVerificationNotification();
         } catch (RequestException $e) {
 
-			$success['message'] = 'Thank you for registering ' .  $input['email'] 'please login to continue';
+			$success['message'] = 'Thank you for registering ' .  $input['email'] . ' please login to continue';
         	return response()->json(['success'=>$success], 201);        
         }
 
