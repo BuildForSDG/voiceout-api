@@ -13,8 +13,7 @@ class UserController extends Controller
 
     public function __construct() 
     {
-        // $this->middleware('auth:sanctum');
-        $this->user = new User;
+        $this->middleware('auth:sanctum');
     }
 
 
@@ -26,7 +25,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = $this->user->all();
+        $users = User::all();
         return response()->json($users);
     }
 
@@ -79,7 +78,7 @@ class UserController extends Controller
     }
 
     public function reports(Request $request, $id) {
-        $reports = \App\Report::where('user_id', $id)->get();
+        $reports = Report::where('user_id', $id)->get();
         return response()->json($reports);
     }
 }

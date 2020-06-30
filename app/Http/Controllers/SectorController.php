@@ -16,7 +16,7 @@ class SectorController extends Controller
      */
     public function index()
     {
-         $sectors = \App\Sector::all();
+         $sectors = Sector::all();
          return response()->json($sectors);
     }
 
@@ -29,7 +29,7 @@ class SectorController extends Controller
     public function store(Request $request)
     {
 
-        $sector = \App\Sector::create([
+        $sector = Sector::create([
             'name' => $request->name
         ]);
 
@@ -83,7 +83,7 @@ class SectorController extends Controller
 
     public function reports(Request $request, $id) {
 
-        $sector = \App\Sector::find($id);
+        $sector = Sector::find($id);
         $reports = $sector->reports;
         return response()->json($reports);
 

@@ -20,7 +20,7 @@ class MailController extends Controller
 
     public function mail(Request $request, $id) {
 
-    	$report = \App\Report::find($id);
+    	$report = Report::find($id);
 
         $report_description = $report->description;
         $imageUrl = $report->media_url['images'];
@@ -38,7 +38,7 @@ class MailController extends Controller
         $recipients = $request->recipients;
         // dd($recipients);
         foreach ($recipients as $recipient) {
-        	$voice = \App\Voice::find($recipient);
+        	$voice = Voice::find($recipient);
         	$report->voices()->attach($voice->id);
         	try {
         		Mail::to($voice->email)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));

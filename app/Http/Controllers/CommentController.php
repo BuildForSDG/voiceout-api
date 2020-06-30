@@ -14,7 +14,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $comments = \App\Comment::with('user:id,first_name,last_name,email')->get();
+        $comments = Comment::with('user:id,first_name,last_name,email')->get();
         return response()->json($comments);
     }
 
@@ -26,7 +26,7 @@ class CommentController extends Controller
      */
     public function store(Request $request, $id)
     {
-           $report = \App\Report::find($id);
+           $report = Report::find($id);
            if (!$report) {
             return;
         }
