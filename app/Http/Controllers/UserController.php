@@ -13,7 +13,8 @@ class UserController extends Controller
 
     public function __construct() 
     {
-        $this->middleware('auth:sanctum');
+        // $this->middleware('auth:sanctum');
+        $this->user = new User;
     }
 
 
@@ -25,7 +26,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = \App\User::all();
+        $users = $this->user->all();
         return response()->json($users);
     }
 
