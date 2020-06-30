@@ -25,7 +25,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::all();
+        $users = \App\User::all();
         return response()->json($users);
     }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
     }
 
     public function reports(Request $request, $id) {
-        $reports = Report::where('user_id', $id)->get();
+        $reports = \App\Report::where('user_id', $id)->get();
         return response()->json($reports);
     }
 }

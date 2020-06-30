@@ -14,7 +14,7 @@ class VoteController extends Controller
      */
     public function index()
     {
-        $votes = Vote::all();
+        $votes = \App\Vote::all();
         return response()->json($voices);
     }
 

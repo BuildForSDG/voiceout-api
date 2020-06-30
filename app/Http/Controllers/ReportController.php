@@ -46,24 +46,24 @@ class ReportController extends Controller
 
 
         if ($state && $limit) {
-            $reports = Report::with(['user', 'sector'])->where('state', $state)->take($limit)->get();
+            $reports = \App\Report::with(['user', 'sector'])->where('state', $state)->take($limit)->get();
             return response()->json($reports);
 
         } elseif ($state) {
-            $reports = Report::with(['user', 'sector'])->where('state', $state)->get();
+            $reports = \App\Report::with(['user', 'sector'])->where('state', $state)->get();
            return response()->json($reports);
 
         } elseif ($limit) {
-            $reports = Report::with(['user', 'sector'])->take($limit)->get();
+            $reports = \App\Report::with(['user', 'sector'])->take($limit)->get();
             return response()->json($reports);
         } elseif ($sector) {
-           $reports = Report::with(['user'])->whereHas('sector', function($q) use ($sector) {
+           $reports = \App\Report::with(['user'])->whereHas('sector', function($q) use ($sector) {
                 $q->where('name', '=', $sector);
            })->get();
            return response()->json($reports);
         }
 
-        $reports = Report::with( ['user', 'sector', 'voices'] )->get();
+        $reports = \App\Report::with( ['user', 'sector', 'voices'] )->get();
         return response()->json($reports);
 
 
@@ -157,7 +157,7 @@ class ReportController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $report = Report::find($id);
+        $report = \App\Report::find($id);
         $report->delete();
     }
 
@@ -166,7 +166,7 @@ class ReportController extends Controller
         $user = auth('sanctum')->user();
         $user_id = $user->id;
 
-        $vote = Vote::firstOrNew([
+        $vote = \App\Vote::firstOrNew([
             'user_id' => $user_id,
             'report_id' => $id,
         ]);
@@ -188,7 +188,7 @@ class ReportController extends Controller
         $user = auth('sanctum')->user();
         $user_id = $user->id;
 
-        $vote = Vote::firstOrNew([
+        $vote = \App\Vote::firstOrNew([
             'user_id' => $user_id,
             'report_id' => $id
         ]);
@@ -208,7 +208,7 @@ class ReportController extends Controller
     public function comment(Request $request, $id) {
 
         // $id = $request->report_id;
-        $report = Report::find($id);
+        $report = \App\Report::find($id);
         if (!$report) {
             return;
         }
@@ -232,13 +232,13 @@ class ReportController extends Controller
     public function comments(Request $request, $id) {
 
         // $id = $request->hi;
-        $report = Report::find($id);
+        $report = \App\Report::find($id);
 
         if (!$report) {
             return;
         }
         
-        $comments = Comment::where('report_id', $id)->with('user:id,first_name,last_name,email')->get();
+        $comments = \App\Comment::where('report_id', $id)->with('user:id,first_name,last_name,email')->get();
         return response()->json($comments);
 
     }

@@ -25,7 +25,7 @@ class VoiceController extends Controller
 
         // $voices = Voice::with('reports')->get();
 
-        $voices = Voice::all();
+        $voices = \App\Voice::all();
         return response()->json($voices);
     }
 
@@ -37,7 +37,7 @@ class VoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $voice = Voice::create([
+        $voice = \App\Voice::create([
             'name' => $request->name,
             'description' => $request->description,
             'email' => $request->email,
@@ -80,7 +80,7 @@ class VoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $voice = Voice::find($id);
+        $voice = \App\Voice::find($id);
         $voice->twitter = $request->twitter;
         $voice->facebook = $request->facebook;
         $voice->save();
@@ -95,7 +95,7 @@ class VoiceController extends Controller
      */
     public function destroy($id)
     {
-        $voice = Voice::find($id);
+        $voice = \App\Voice::find($id);
         $voice->delete();
     }
 }

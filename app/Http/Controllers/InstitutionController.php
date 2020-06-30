@@ -24,7 +24,7 @@ class InstitutionController extends Controller
      */
     public function index()
     {
-        $institutions = Institution::with( ['owner'] )->get();
+        $institutions = \App\Institution::with( ['owner'] )->get();
 
         // $institutions = Institution::all();
 
@@ -40,7 +40,7 @@ class InstitutionController extends Controller
     public function store(Request $request)
     {
 
-         $institution = Institution::create([
+         $institution = \App\Institution::create([
             'name' => $request->name,
             'description' => $request->description,
             'address' => $request->address,
@@ -93,12 +93,12 @@ class InstitutionController extends Controller
     }
 
     public function reports(Request $request, $id) {
-        $reports = Report::where('institution_id', $id)->get();
+        $reports = \App\Report::where('institution_id', $id)->get();
         return response()->json($reports);
     }
 
     public function followers(Request $request, $id) {
-        $institution = Institution::find($id);
+        $institution = \App\Institution::find($id);
         $followers = $institution->followers;
         return response()->json($followers);
     }
