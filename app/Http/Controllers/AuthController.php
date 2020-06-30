@@ -103,7 +103,14 @@ class AuthController extends Controller
                 ];
                 return response($response, 200);
             }else{
-                return response()->json(['message'=>'Please Verify Email'], 404);
+            	$token = $user->createToken('user-token')->plainTextToken;
+                $response = [
+                    'user' => $user,
+                    'token' => $token
+                ];
+                return response($response, 200);
+
+                // return response()->json(['message'=>'Please Verify Email'], 404);
             }
         }
         else{
@@ -133,7 +140,14 @@ class AuthController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = User::create($input);
-        $user->sendApiEmailVerificationNotification();
+        try {
+        	$user->sendApiEmailVerificationNotification();
+        } catch (RequestException $e) {
+
+			$success['message'] = 'Thank you for registering ' .  $input['email'] 'please login to continue';
+        	return response()->json(['success'=>$success], 201);        
+        }
+
         $success['message'] = 'Please confirm your account by clicking on verify user button sent to your mail: ' . $input['email'];
         return response()->json(['success'=>$success], 201);
     }
