@@ -6,10 +6,17 @@ use App\Http\Resources\User as UserResource;
 use App\User;
 use App\Report;
 
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+
+    use VerifiesEmails;
+    public $successStatus = 201;
 
     public function __construct() 
     {
@@ -80,5 +87,19 @@ class UserController extends Controller
     public function reports(Request $request, $id) {
         $reports = Report::where('user_id', $id)->get();
         return response()->json($reports);
+    }
+
+
+
+    /**
+    * details api
+    *
+    * @return \Illuminate\Http\Response
+    */
+    public function details()
+    {
+        $user = Auth::user();
+        return Redirect::to('https://voiceout.netlify.app');
+        // return response()->json(['success' => $user], $this->successStatus);
     }
 }

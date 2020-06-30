@@ -10,8 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
+use App\Notifications\VerifyApiEmail;
 
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     use HasApiTokens, Notifiable, InteractsWithMedia;
 
@@ -72,5 +73,10 @@ class User extends Authenticatable implements HasMedia
     //     }
     //     dd($this->getFirstMediaUrl('images'));
     // }
+
+    public function sendApiEmailVerificationNotification()
+    {
+        $this->notify(new VerifyApiEmail); // my notification
+    }
 
 }

@@ -34,8 +34,21 @@ Route::get('/reports/hi', 'ReportController@hi');
 Route::get('/reports/{report_id}/comments', 'ReportController@comments');
 Route::get('/sectors/{sector_id}/reports', 'SectorController@reports');
 
+
+Route::get('email/verify/{id}', 'VerificationApiController@verify')->name('verificationapi.verify');
+Route::get('email/resend', 'VerificationApiController@resend')->name('verificationapi.resend');
+
 Route::apiResource('/voices', 'VoiceController');
 Route::apiResource('/comments', 'CommentController');
 Route::apiResource('/reports', 'ReportController');
 Route::apiResource('/users', 'UserController');
 Route::apiResource('/sectors', 'SectorController');
+
+
+
+// Route::post('alogin', 'UserController@login');
+// Route::post('aregister', 'UserController@register');
+// Route::group(['middleware' => 'auth:api'], function(){
+// Route::post('adetails', 'UserController@details')->middleware('verified');
+
+// }); // will work only when user has verified the email
