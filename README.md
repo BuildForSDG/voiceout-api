@@ -1,6 +1,5 @@
 VoiceOut
 
-
 ## About
 
 Nigeria is a very big country that needs the VoiceOut app in our battle against Corruption. VoiceOut is an App that exposes Irregularities, Bribery and Corruption in Nigerian Institutions. 
@@ -14,10 +13,8 @@ This application aim to solve the United Nations Sustainable Development Goal 16
 ## Usage
 <br/>
 
-
 ## Setup
 <br/>
-
 
 ## Authors
 
@@ -29,10 +26,8 @@ Adesina Oluwatoyin - [etoyin](github.com/etoyin)
 ## Contributing
 <br/>
 
-
 ## Acknowledgements
 <br/>
-
 
 ## LICENSE
 MIT
