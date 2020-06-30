@@ -45,7 +45,7 @@ class MailController extends Controller
         	try {
         		Mail::to($voice->email)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));
         	} catch (RequestException $e) {
-        		// continue;
+        		return $e;
         	}
         }
 
