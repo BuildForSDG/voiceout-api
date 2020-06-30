@@ -17,6 +17,9 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
 
+	use VerifiesEmails;
+    public $successStatus = 201;
+
 	// public function register(Request $request)
 	// {
 
@@ -69,6 +72,21 @@ class AuthController extends Controller
 	// 	return response($response, 200);
 
 	// }
+
+
+
+    // /**
+    // * details api
+    // *
+    // * @return \Illuminate\Http\Response
+    // */
+    // public function details()
+    // {
+    //     $user = Auth::user();
+    //     return Redirect::to('https://voiceout.netlify.app');
+    //     // return response()->json(['success' => $user], $this->successStatus);
+    // }
+
 
 	public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){

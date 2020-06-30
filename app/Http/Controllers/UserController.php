@@ -15,9 +15,6 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    use VerifiesEmails;
-    public $successStatus = 201;
-
     public function __construct() 
     {
         $this->middleware('auth:sanctum');
@@ -87,19 +84,5 @@ class UserController extends Controller
     public function reports(Request $request, $id) {
         $reports = Report::where('user_id', $id)->get();
         return response()->json($reports);
-    }
-
-
-
-    /**
-    * details api
-    *
-    * @return \Illuminate\Http\Response
-    */
-    public function details()
-    {
-        $user = Auth::user();
-        return Redirect::to('https://voiceout.netlify.app');
-        // return response()->json(['success' => $user], $this->successStatus);
     }
 }

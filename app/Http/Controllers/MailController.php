@@ -36,10 +36,12 @@ class MailController extends Controller
         }
 
         $recipients = $request->recipients;
-        // dd($recipients);
         foreach ($recipients as $recipient) {
         	$voice = Voice::find($recipient);
         	$report->voices()->attach($voice->id);
+            if ( $recipient == 1 || $recipient == 2 || $recipient == 3 ) {
+                continue;
+            }
         	try {
         		Mail::to($voice->email)->send(new ReportCase($report_description, $imageUrl, $videoUrl, $reportUrl));
         	} catch (RequestException $e) {
