@@ -146,7 +146,17 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $report = Report::find($id);
+        $report->description = $request->description;
+        $report->videos = $request->videos;
+        $report->save();
+
+        $response = [
+            'report' => $report,
+            'message' => 'Update successful'
+        ];
+
+        return response($response, 200);
     }
 
     /**
