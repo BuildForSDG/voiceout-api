@@ -72,6 +72,19 @@ class AuthController extends Controller
 
 	}
 
+
+	public function logout(Request $request) {
+		$user = auth('sanctum')->user();
+		$user->tokens()->whereName('user-token')->delete();
+
+		$response = [
+			'user' => $user,
+			'message' => 'Log out successful'
+		];
+		return response($response, 200);
+	}
+
+
     // /**
     // * details api
     // *
@@ -136,15 +149,6 @@ class AuthController extends Controller
  //    }
 
 
- //    public function logout(Request $request) {
-	// 	$user = auth('sanctum')->user();
-	// 	$user->tokens()->whereName('user-token')->delete();
 
-	// 	$response = [
-	// 		'user' => $user,
-	// 		'message' => 'Log out successful'
-	// 	];
-	// 	return response($response, 200);
-	// }
 
 }
