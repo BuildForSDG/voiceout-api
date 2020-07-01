@@ -131,8 +131,6 @@ class ReportController extends Controller
     {
         $report = $report->load('comments', 'user', 'sector', 'voices');
 
-        // dd($report->media_url['videos']);
-
         if ($report) {
             return response()->json($report);
 
@@ -148,15 +146,7 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $report = Report::find($id);
-        $report->media_url['videos'] = $request->videos;
-        $report->save();
-        $response = [
-            'report' => $report,
-            'message' => 'Update successful'
-        ];
-
-        return response($response, 200);
+        //
     }
 
     /**
