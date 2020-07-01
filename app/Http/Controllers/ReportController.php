@@ -147,8 +147,12 @@ class ReportController extends Controller
     public function update(Request $request, $id)
     {
         $report = Report::find($id);
+        $report->title = $request->title
         $report->description = $request->description;
         $report->videos = $request->videos;
+        $report->state = $request->state;
+        $report->institution_name = $request->institution_name;
+        $report->address = $request->address;
         $report->save();
 
         $response = [
