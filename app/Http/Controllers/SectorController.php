@@ -67,7 +67,9 @@ class SectorController extends Controller
      */
     public function update(Request $request, Sector $sector)
     {
-        //
+        $sector->name = $request->name;
+        $sector->save();
+        return response()->json($sector);
     }
 
     /**
@@ -78,7 +80,12 @@ class SectorController extends Controller
      */
     public function destroy(Sector $sector)
     {
-        //
+        $sector->delete();
+        $response = [
+            'sector' => $sector,
+            'message' => 'sector deleted successfully'
+        ];
+        return response($response, 201);
     }
 
     public function reports(Request $request, $id) {
