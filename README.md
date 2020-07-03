@@ -17,8 +17,8 @@ This application aim to solve the United Nations Sustainable Development Goal 16
 
 ## Authors
 
-Towoju Johnson - [johnson-jnr](github.com/johnson-jnr) <br/>
-Adesina Oluwatoyin - [etoyin](github.com/etoyin)
+Johnson Towoju - [johnson-jnr](github.com/johnson-jnr) <br/>
+Oluwatoyin Adesina - [etoyin](github.com/etoyin)
 
 ## LICENSE
 MIT
