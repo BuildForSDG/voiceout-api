@@ -159,6 +159,7 @@ class ReportController extends Controller
     {
         $report = Report::find($id);
         $report->delete();
+        return response()->json($report);
     }
 
     public function upvote(Request $request, $id) {
